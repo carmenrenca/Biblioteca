@@ -1,0 +1,137 @@
+
+///////////CREAR OBJETO DIRECCION\\\\\\\\\\\\\º
+
+create or replace TYPE DIRECCION AS OBJECT(
+CALLE VARCHAR2(25),
+CIUDAD VARCHAR2(20),
+CODIGO_POST NUMBER(5),
+MEMBER PROCEDURE SET_CALLE(C VARCHAR2),
+MEMBER FUNCTION GET_CALLE RETURN VARCHAR2
+);
+
+//////////////////CREAR OBJETO USUARIO\\\\\\\\\\\\\\\\\\\º
+
+create or replace TYPE USUARIO AS OBJECT(
+NCARNET NUMBER,
+DNI VARCHAR2(9),
+NOMBRE VARCHAR2(35),
+DIREC HR.DIRECCION,
+PENALIZACION NUMBER
+);
+
+/////////////////////CREAR TABLA USUARIO\\\\\\\\\\\\\\\\\\\\\\\\\\
+CREATE TABLE USUARIOS OF USUARIO(
+NCARNET PRIMARY KEY
+);
+
+
+
+//////////////////////////7/cursor para SELECIONAR USUARIOS\\\\\\\\\\\\\\\\\\\\\\\\\\ 
+
+create or replace PACKAGE      "CONSULTA_USER" 
+AS
+
+    TYPE cursor_dinamico IS REF CURSOR;
+    PROCEDURE obtener_usuarios(lista_registros OUT cursor_dinamico);
+
+END;
+create or replace PACKAGE BODY CONSULTA_USUER
+IS
+   PROCEDURE obtener_usuarios(lista_registros OUT cursor_dinamico) IS 
+    BEGIN      
+        OPEN lista_registros FOR 
+        SELECT u.NCARNET,u.DNI,u.NOMBRE,u.DIREC.CALLE,u.DIREC.CIUDAD,u.DIREC.CODIGO_POST, u.PENALIZACION FROM USUARIOS u;
+  END;
+  END;
+
+
+//////////////////////////////////PROCESO PARA CREAR LECTORES\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+create or replace PROCEDURE "CREAR_USER"(
+
+
+
+dni IN USUARIOS.DNI%TYPE,
+nombre IN USUARIOS.NOMBRE%TYPE,
+calle IN USUARIOS.DIREC.CALLE%TYPE,
+ciudad IN USUARIOS.DIREC.CIUDAD%TYPE,
+cod_post IN USUARIOS.DIREC.CODIGO_POST%TYPE,
+penalizacion IN USUARIOS.PENALIZACION%TYPE)IS
+BEGIN 
+INSERT INTO USUARIOS VALUES(seq_lectores.NEXTVAL,dni,nombre,DIRECCION(calle,ciudad,cod_post),penalizacion);
+END;
+
+///PROCEDIMIENTO PARA EDITAR USUARIO
+create or replace PROCEDURE "EDITAR_USER"(
+
+
+nombre IN USUARIOS.NOMBRE%TYPE,
+dni IN USUARIOS.DNI%TYPE,
+calle IN USUARIOS.DIREC.CALLE%TYPE,
+ciudad IN USUARIOS.DIREC.CIUDAD%TYPE,
+cod_post IN USUARIOS.DIREC.CODIGO_POST%TYPE,
+penalizacion IN USUARIOS.PENALIZACION%TYPE)IS
+BEGIN 
+UPDATE  USUARIOS U SET U.NOMBRE=nombre,U.DNI=dni,U.DIREC.CALLE=calle,U.DIREC.CIUDAD=ciudad,U.DIREC.CODIGO_POST=cod_post,U.PENALIZACION=penalizacion;
+END;
+
+///////////////////////77////SELECIONAR POR ID\\\\\\\\\\\\\\\\\\\\\\º\\\
+
+create or replace PACKAGE      "CONSULTA_USER_ID" 
+AS
+
+    TYPE cursor_dinamico IS REF CURSOR;
+    PROCEDURE obtener_usuarios_ID(lista_registros OUT cursor_dinamico, ncarnet in NUMBER);
+
+END;
+
+
+create or replace PACKAGE BODY CONSULTA_USER_ID
+IS
+   PROCEDURE obtener_usuarios_ID(lista_registros OUT cursor_dinamico, ncarnet in NUMBER) IS 
+    BEGIN      
+        OPEN lista_registros FOR 
+        SELECT DNI,NOMBRE,U.DIREC.CALLE,U.DIREC.CIUDAD,U.DIREC.CODIGO_POST FROM USUARIOS U WHERE U.NCARNET=ncarnet;
+  END;
+  END;
+
+///////////////////////ELIMINAR USUARIO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+create or replace PROCEDURE      "ELIMINAR_USER" (
+      iden IN USUARIOS.NCARNET%TYPE
+) IS
+BEGIN
+    DELETE FROM USUARIOS U WHERE U.NCARNET=iden;
+END;
+
+//////////////////////////////CREAR_OBJETO_AUTOR\\\\\\\\\\\\\\\\\\\\\\
+create or replace TYPE AUTOR AS OBJECT(
+NOMBRE VARCHAR2(25),
+APELLIDO1 VARCHAR2(20),
+APELLIDO2 VARCHAR2(20)
+
+);
+
+--------------------------------------------------------------------------------LIBRO---------------------------------------------------------------------------------------
+
+//////////////////////CREAR_OBJETO_LIBRO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+create or replace TYPE LIBRO AS OBJECT(
+ID_LIBRO NUMBER,
+TITULO VARCHAR2(30),
+EDITORIAL VARCHAR2(35),
+autor HR.AUTOR,
+CLASE VARCHAR(20),
+DISPONIBILIDAD NUMBER(1)
+);
+
+////////////////////////////CREAR TABLA LIBRO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+CREATE TABLE LIBROS OF LIBRO(
+ID_LIBRO PRIMARY KEY
+);
+
+///////////////////////SECUENCIA LIBR INCREMENTAL\\\\\\\\\\\\\\\\\\
+CREATE SEQUENCE seq_libro
+   MINVALUE 1
+   START WITH 1
+   INCREMENT BY 1;
