@@ -44,27 +44,7 @@ public class usuario extends database{
          public usuario(){
              super();
          }
-         //para probar si me saca los usuarios para pruebas 
- /**        	public void consultarUsuariosporid(int id) throws SQLException {
-		//EJEMPLO CURSOR
-                    System.out.print("entro");
-		con=database.getConnection();
-		cstmt=con.prepareCall("{call CONSULTA_USER.obtener_usuarios(?)}");
-	    cstmt.registerOutParameter(1, OracleTypes.CURSOR);
-	    cstmt.executeQuery();
-	    ResultSet cursor = (ResultSet)cstmt.getObject(1);
-	    int tamanho=0;
-	    while(cursor.next()) {
-	    	tamanho++;
-	        System.out.println("TAMANHO:"+tamanho+" NCARNET = " + cursor.getInt(1)+"DNI: "+cursor.getString(2) +" Nombre:"+cursor.getString(3)+" Calle:"+cursor.getString(4)+" Ciudad:"+cursor.getString(5)+" COD_POST:"+cursor.getInt(6)+" Penalizcion:"+cursor.getInt(7));
-	    
-	    }
-	    cursor.close();
-	    cstmt.close();
-	    con.close();
-	}**/
-         
-     //imprimir usuario en tabla 
+
                 public String[] listar_por_id(int id){
                    
                     String[] info = new String[6];
@@ -76,17 +56,24 @@ public class usuario extends database{
               cstmt.execute();
                cstmt.executeQuery();
        
-               
+             int p;
                 ResultSet cursor= (ResultSet) cstmt.getObject(1);
                   while(cursor.next()){
+                   p=cursor.getInt(1);
+                   
              info[0]=cursor.getString(2);
+              
+          
                 info[1]=cursor.getString(3);
-                System.out.print(cursor.getString(3)+"ento");
+         
                  info[2]=cursor.getString(4);
                  info[3]=cursor.getString(5);
-                    System.out.print(cursor.getInt(6));
+                
                 info[4]=Integer.toString(cursor.getInt(6));
                 info[5]=Integer.toString(cursor.getInt(7));
+                if(p==id){
+                    break;
+                }
               }
                 
                 cursor.close();
@@ -134,6 +121,7 @@ public class usuario extends database{
               
               ResultSet cursor= (ResultSet) cstmt.getObject(1);
               int i=0;
+              String aux = null;
               while(cursor.next()){
                   Ncarnet=cursor.getInt(1);
                   dni=cursor.getString(3);
@@ -149,7 +137,12 @@ public class usuario extends database{
                   filas[i][3]=calle;
                   filas[i][4]=ciudad;
                   filas[i][5]=Integer.toString(cod_post);
-                  filas[i][6]=Integer.toString(penalizacion);
+                  if(penalizacion==0){
+                      aux="Penalizado";
+                  }else{
+                      aux=" ";
+                  }
+                  filas[i][6]=aux;
                     i++;
               }
              cursor.close();
@@ -164,18 +157,18 @@ public class usuario extends database{
                
                
             ///////////metodo para crear un nuevo lector\\\\\\\\\\\\
-               public void crear_lector( String dni,String nombre, String calle, String ciudad, int cod_post, int penalizacion){
+               public void crear_lector( String dni,String nombre, String calle, String ciudad, int cod_post){
           try {
-     
+              System.out.println("entraa "+dni+nombre+calle+ciudad+cod_post);
               con=database.getConnection();
-              cstmt= con.prepareCall("{call CREAR_USER(?,?,?,?,?,?)}");
+              cstmt= con.prepareCall("{call CREAR_USER(?,?,?,?,?)}");
                     cstmt.setString(1, dni);
               cstmt.setString(2, nombre);
        
               cstmt.setString(3, calle);
               cstmt.setString(4, ciudad);
               cstmt.setInt(5, cod_post);
-              cstmt.setInt(6, penalizacion);
+       
               cstmt.execute();
               cstmt.close();
               con.close();
@@ -211,12 +204,26 @@ public class usuario extends database{
               con=database.getConnection();
               cstmt= con.prepareCall("{call ELIMINAR_USER(?)}");
                 cstmt.setInt(1, ncarnet);
-             	  System.out.print(ncarnet+"uno");
+
          cstmt.execute();
          cstmt.close();
 	 con.close();
             listarlectores();
-   System.out.print(ncarnet+"dos");
+
+         }
+         public void despenalizar(int id){
+          try {
+              con=database.getConnection();
+              cstmt= con.prepareCall("{call DESPENALIZAR(?)}");
+              cstmt.setInt(1, id);
+              
+              cstmt.execute();
+              cstmt.close();
+              con.close();
+              listarlectores();
+          } catch (SQLException ex) {
+              Logger.getLogger(usuario.class.getName()).log(Level.SEVERE, null, ex);
+          }
          }
                 
 }

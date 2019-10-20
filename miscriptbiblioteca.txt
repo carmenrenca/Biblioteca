@@ -9,7 +9,7 @@ MEMBER PROCEDURE SET_CALLE(C VARCHAR2),
 MEMBER FUNCTION GET_CALLE RETURN VARCHAR2
 );
 
-//////////////////CREAR OBJETO USUARIO\\\\\\\\\\\\\\\\\\\º
+//////////////////CREAR OBJETO USUARIO\\\\\\\\\\\\\\\\\\\
 
 create or replace TYPE USUARIO AS OBJECT(
 NCARNET NUMBER,
@@ -107,8 +107,7 @@ END;
 //////////////////////////////CREAR_OBJETO_AUTOR\\\\\\\\\\\\\\\\\\\\\\
 create or replace TYPE AUTOR AS OBJECT(
 NOMBRE VARCHAR2(25),
-APELLIDO1 VARCHAR2(20),
-APELLIDO2 VARCHAR2(20)
+APELLIDO1 VARCHAR2(20)
 
 );
 
@@ -135,3 +134,162 @@ CREATE SEQUENCE seq_libro
    MINVALUE 1
    START WITH 1
    INCREMENT BY 1;
+
+//// IMPRIMIR LIBROS\\\\\\\\\\\\\\
+create or replace PACKAGE      "CONSULTA_LIBROS" 
+AS
+
+    TYPE cursor_dinamico IS REF CURSOR;
+    PROCEDURE obtener_libros(lista_registros OUT cursor_dinamico);
+
+END;
+create or replace PACKAGE BODY CONSULTA_LIBROS
+IS
+   PROCEDURE obtener_libros(lista_registros OUT cursor_dinamico) IS 
+    BEGIN      
+        OPEN lista_registros FOR 
+        SELECT L.ID_LIBRO, L.TITULO, L.EDITORIAL, L.AUTOR.NOMBRE, L.AUTOR.APELLIDO1, L.CLASE, L.DISPONIBILIDAD  FROM LIBROS L;
+  END;
+  END;
+
+////////////////INSERTA LIBROS\\\\\\\\\\\\\\\\\\\\
+
+CREATE OR REPLACE PROCEDURE "CREAR_LIBRO"(
+titulo IN LIBROS.TITULO%TYPE, 
+editorial IN LIBROS.EDITORIAL%TYPE,
+nombre_autor IN LIBROS.autor.NOMBRE%TYPE,
+apellido IN LIBROS.autor.APELLIDO1%TYPE, 
+clase IN LIBROS.CLASE%TYPE,
+disponibilidad IN LIBROS.DISPONIBILIDAD%TYPE)IS
+BEGIN 
+INSERT INTO LIBROS l VALUES(seq_lectores.NEXTVAL,titulo,editorial,AUTOR(nombre_autor,apellido),clase,disponibilidad);
+END;
+
+////////////////ELIMINAR LIBROS\\\\\\\\\\\\\\\\\\\\\
+create or replace PROCEDURE      "ELIMINAR_LIBRO" (
+      id IN LIBROS.ID_LIBRO%TYPE
+) IS
+BEGIN
+    DELETE FROM LIBROS L  WHERE L.ID_LIBRO=id;
+END;
+
+-------------------------------------------------------------CLASE-------------------------------------------------
+CREATE TABLE CLASE (
+GENERO VARCHAR2(25),
+DIAS NUMBER
+
+);
+
+INSERT INTO CLASE (GENERO, DIAS) VALUES('TECNICOS',20) ;
+---------------------------------------------------------------PRESTAMOS------------------------------------------------------------------------------------
+
+CREATE TABLE PRESTAMOS (
+ID_PRESTAMO NUMBER PRIMARY KEY,
+FECHA_INICIO DATE NOT NULL,
+FECHA_LIMITE DATE NOT NULL,
+FECHA_ENTREGA DATE, 
+libro REF LIBRO SCOPE IS LIBROS,
+usuario REF USUARIO SCOPE IS USUARIOS
+
+);
+
+//////////////SEQ PRESTAMO\\\\\\\
+CREATE SEQUENCE seq_prestamo
+   MINVALUE 1
+   START WITH 1
+   INCREMENT BY 1;
+
+////////CREAR PRESTAMO\\\\\\\\\\\\\\
+
+  create or replace PROCEDURE "CREAR_PRESTAMO"(
+
+  id_libro IN LIBROS.ID_LIBRO%TYPE,
+  id_usuario IN USUARIOS.NCARNET%TYPE, clase VARCHAR2)IS
+  
+   DISPO NUMBER;
+   dias_clase NUMBER;
+	dia_hoy DATE;
+  
+  BEGIN 
+  select   CURRENT_TIMESTAMP into dia_hoy from dual;
+  SELECT  l.DISPONIBILIDAD INTO DISPO FROM LIBROS l WHERE l.ID_LIBRO=id_libro;
+  SELECT DIAS INTO dias_clase FROM CLASE WHERE GENERO=clase;  
+  DBMS_OUTPUT.PUT_LINE(dias_clase+'entro');  
+  IF DISPO=1 THEN
+  UPDATE LIBROS SET DISPONIBILIDAD=0 WHERE ID_LIBRO=id_libro;
+  
+  INSERT INTO PRESTAMOS(ID_PRESTAMO,FECHA_INICIO,FECHA_DEVOLUCION,FECHA_ENTREGA,LIBRO,USUARIO)
+  SELECT seq_prestamo.NEXTVAL,dia_hoy,dia_hoy+dias_clase,NULL,REF(L),REF(US) FROM  LIBROS L, USUARIOS US WHERE L.ID_LIBRO=id_libro AND  US.NCARNET=id_usuario;
+
+
+END IF;
+  END;
+////////////////////////////LISTAR PRESTAMOS\\\\\\\\\\\\\\\
+
+create or replace PACKAGE      "LISTAR_PRESTAMO" 
+AS
+
+    TYPE cursor_dinamico IS REF CURSOR;
+    PROCEDURE obtener_prestamos(lista_registros OUT cursor_dinamico);
+	
+END;
+create or replace PACKAGE BODY LISTAR_PRESTAMO
+IS
+   PROCEDURE obtener_prestamos(lista_registros OUT cursor_dinamico) IS 
+    BEGIN      
+        OPEN lista_registros FOR 
+        SELECT ID_PRESTAMO,FECHA_INICIO,FECHA_DEVOLUCION,FECHA_ENTREGA,ID_LIBRO,ID_USUARIO;
+  END;
+  END;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             /////////////////////////////DEVOLVER LIBRO\\\\\\\\\\\\\\\\\\\\\\\\\\\º                       
+
+
+
+create or replace PROCEDURE DEVOLVER_LIBRO(
+
+  nid_libro IN LIBROS.ID_LIBRO%TYPE, id_pre number)IS
+  
+   DISP NUMBER;
+
+	fe_entrega DATE;
+  id_user NUMBER;
+  f_limite DATE;
+  BEGIN 
+
+  SELECT  DISPONIBILIDAD INTO DISP FROM LIBROS  WHERE ID_LIBRO=nid_libro;
+  IF DISP=0 THEN
+  UPDATE LIBROS SET DISPONIBILIDAD=1 WHERE ID_LIBRO=nid_libro;
+   select   CURRENT_TIMESTAMP into fe_entrega from dual;
+   UPDATE PRESTAMOS p SET p.FECHA_ENTREGA=fe_entrega WHERE p.ID_PRESTAMO=id_pre;
+ INSERT INTO HISTORICOS 
+SELECT * FROM PRESTAMOS WHERE ID_PRESTAMO=id_pre;
+
+  
+ 
+  SELECT FECHA_LIMITE INTO f_limite FROM PRESTAMOS WHERE ID_PRESTAMO=id_pre;
+ 
+  IF fe_entrega> f_limite THEN
+SELECT DEREF(USUARIO).NCARNET INTO id_user FROM PRESTAMOS  WHERE ID_PRESTAMO=id_pre;
+  UPDATE USUARIOS SET PENALIZACION=0 WHERE NCARNET=id_user;
+  END IF;
+  
+DELETE PRESTAMOS WHERE ID_PRESTAMO= id_pre;
+END IF;
+  END;     
+  
+///////////////////////////LISTAR HITORICO\\\\\\\\\\\\\\\\  
+
+create or replace PACKAGE      "VER_HISTORICO" 
+AS
+
+    TYPE cursor_dinamico IS REF CURSOR;
+    PROCEDURE obtener_historico(lista_registros OUT cursor_dinamico);
+
+END;
+create or replace PACKAGE BODY VER_HISTORICO
+IS
+   PROCEDURE obtener_historico(lista_registros OUT cursor_dinamico) IS 
+    BEGIN      
+        OPEN lista_registros FOR 
+       SELECT ID_PRESTAMO,FECHA_INICIO,FECHA_ENTREGA,FECHA_LIMITE,ID_LIBRO,ID_USUARIO;
+  END;
+  END;                                                                                                     

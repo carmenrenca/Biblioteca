@@ -18,7 +18,7 @@ public class CallableStatementFunciones {
             Connection con = database.getConnection();
             CallableStatement cstmt = null;
          
-            u.consultarUsuarios();
+          //  u.consultarUsuarios();
            
             
         } catch (SQLException e) {
