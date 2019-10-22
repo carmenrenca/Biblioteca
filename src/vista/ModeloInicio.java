@@ -100,7 +100,7 @@ public class ModeloInicio extends javax.swing.JFrame {
         codig_postext = new javax.swing.JTextField();
         btnInsertlector = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        Buscar_usuer = new javax.swing.JButton();
+        Visualizar = new javax.swing.JButton();
         NCARNETtxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         text_eliminar_libro = new javax.swing.JTextField();
@@ -111,14 +111,13 @@ public class ModeloInicio extends javax.swing.JFrame {
         jLabel35 = new javax.swing.JLabel();
         txt_despenalizar_id = new javax.swing.JTextField();
         BTM_DESPENALIZAR = new javax.swing.JButton();
+        btn_editar_User = new javax.swing.JButton();
         Crear_Prestamo = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         btn_crear_prestamo = new javax.swing.JButton();
         devolucion_libro = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        Dias_trascurridos = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         Clase_Libro_P = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
@@ -131,8 +130,6 @@ public class ModeloInicio extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         Nombre_U_P = new javax.swing.JTextField();
-        Penalizado_P = new javax.swing.JTextField();
-        jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         dias_prestamo = new javax.swing.JTextField();
         fecha_FinPrestamo = new javax.swing.JTextField();
@@ -172,29 +169,30 @@ public class ModeloInicio extends javax.swing.JFrame {
         IncioLayout.setHorizontalGroup(
             IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IncioLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addGroup(IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(bt_visualizar_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                    .addComponent(bt_visualizar_LIBROS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_ir_PanelPrestamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(670, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IncioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(139, 139, 139))
+                .addGroup(IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(IncioLayout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addGroup(IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bt_visualizar_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                            .addComponent(bt_visualizar_LIBROS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_ir_PanelPrestamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(IncioLayout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(jLabel1)))
+                .addContainerGap(800, Short.MAX_VALUE))
         );
         IncioLayout.setVerticalGroup(
             IncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IncioLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
-                .addGap(40, 40, 40)
+                .addGap(36, 36, 36)
                 .addComponent(bt_visualizar_usuario)
                 .addGap(31, 31, 31)
                 .addComponent(bt_visualizar_LIBROS)
                 .addGap(29, 29, 29)
                 .addComponent(btn_ir_PanelPrestamo)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(378, Short.MAX_VALUE))
         );
 
         PanelAPP.add(Incio, "card3");
@@ -248,7 +246,7 @@ public class ModeloInicio extends javax.swing.JFrame {
             }
         });
 
-        btnInsertlibro.setText("Guardar");
+        btnInsertlibro.setText("Crear");
         btnInsertlibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertlibroActionPerformed(evt);
@@ -257,7 +255,7 @@ public class ModeloInicio extends javax.swing.JFrame {
 
         jLabel6.setText("ELIMINAR");
 
-        Buscar_libro.setText("Buscar");
+        Buscar_libro.setText("Visualizar");
 
         jLabel7.setText("Introduce el  ID  del libro a eliminar: ");
 
@@ -292,9 +290,9 @@ public class ModeloInicio extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pLIBROSLayout.createSequentialGroup()
-                        .addGap(396, 396, 396)
+                        .addGap(360, 360, 360)
                         .addComponent(Buscar_libro)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(id_librotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pLIBROSLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
@@ -341,7 +339,7 @@ public class ModeloInicio extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(editorialtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(405, Short.MAX_VALUE))
         );
         pLIBROSLayout.setVerticalGroup(
             pLIBROSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,7 +441,7 @@ public class ModeloInicio extends javax.swing.JFrame {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(VOLVER_P)
-                .addContainerGap(388, Short.MAX_VALUE))
+                .addContainerGap(344, Short.MAX_VALUE))
         );
 
         PanelAPP.add(P_Historicos, "card7");
@@ -540,7 +538,7 @@ public class ModeloInicio extends javax.swing.JFrame {
                     .addComponent(text_pres_modifi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Modi_Prestamo)
                     .addComponent(Volver_inicioP))
-                .addContainerGap(329, Short.MAX_VALUE))
+                .addContainerGap(285, Short.MAX_VALUE))
         );
 
         PanelAPP.add(P_Prestamo, "card6");
@@ -594,7 +592,7 @@ public class ModeloInicio extends javax.swing.JFrame {
             }
         });
 
-        btnInsertlector.setText("Guardar");
+        btnInsertlector.setText("Crear");
         btnInsertlector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertlectorActionPerformed(evt);
@@ -603,7 +601,7 @@ public class ModeloInicio extends javax.swing.JFrame {
 
         jLabel3.setText("ELIMINAR");
 
-        Buscar_usuer.setText("Buscar");
+        Visualizar.setText("Visualizar");
 
         jLabel4.setText("Introduce el Nº de carnet del usuario a eliminar: ");
 
@@ -622,6 +620,8 @@ public class ModeloInicio extends javax.swing.JFrame {
         jLabel35.setText("Introduzca el ID del usuario Penaloizado: ");
 
         BTM_DESPENALIZAR.setText("Desbloquear");
+
+        btn_editar_User.setText("Editar");
 
         javax.swing.GroupLayout pUsuarioLayout = new javax.swing.GroupLayout(pUsuario);
         pUsuario.setLayout(pUsuarioLayout);
@@ -656,6 +656,8 @@ public class ModeloInicio extends javax.swing.JFrame {
                                     .addComponent(dnitext, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(pUsuarioLayout.createSequentialGroup()
+                                            .addComponent(btn_editar_User)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(btnInsertlector, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(17, 17, 17))
                                         .addComponent(ciudadtext, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -687,20 +689,20 @@ public class ModeloInicio extends javax.swing.JFrame {
                                 .addComponent(BTM_DESPENALIZAR))))
                     .addGroup(pUsuarioLayout.createSequentialGroup()
                         .addGap(396, 396, 396)
-                        .addComponent(Buscar_usuer)
+                        .addComponent(Visualizar)
                         .addGap(18, 18, 18)
                         .addComponent(NCARNETtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pUsuarioLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addContainerGap(405, Short.MAX_VALUE))
             .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pUsuarioLayout.createSequentialGroup()
                     .addGap(46, 46, 46)
                     .addComponent(jLabel14)
                     .addGap(54, 54, 54)
                     .addComponent(nombre_usuariotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(605, Short.MAX_VALUE)))
+                    .addContainerGap(735, Short.MAX_VALUE)))
         );
         pUsuarioLayout.setVerticalGroup(
             pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -711,7 +713,7 @@ public class ModeloInicio extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Buscar_usuer)
+                    .addComponent(Visualizar)
                     .addComponent(NCARNETtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -729,7 +731,8 @@ public class ModeloInicio extends javax.swing.JFrame {
                 .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codig_postext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
-                    .addComponent(btnInsertlector))
+                    .addComponent(btnInsertlector)
+                    .addComponent(btn_editar_User))
                 .addGap(27, 27, 27)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
@@ -745,14 +748,14 @@ public class ModeloInicio extends javax.swing.JFrame {
                     .addComponent(jLabel35)
                     .addComponent(txt_despenalizar_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BTM_DESPENALIZAR))
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
             .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pUsuarioLayout.createSequentialGroup()
                     .addGap(223, 223, 223)
                     .addGroup(pUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
                         .addComponent(nombre_usuariotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(385, Short.MAX_VALUE)))
+                    .addContainerGap(341, Short.MAX_VALUE)))
         );
 
         PanelAPP.add(pUsuario, "card11");
@@ -766,14 +769,6 @@ public class ModeloInicio extends javax.swing.JFrame {
         jLabel10.setText("Prestamo de libros a socios");
 
         jLabel11.setText("Nº Dias de Prestamo");
-
-        Dias_trascurridos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Dias_trascurridosActionPerformed(evt);
-            }
-        });
-
-        jLabel12.setText("Días Tranascurridos");
 
         jLabel13.setText("Libros");
 
@@ -790,8 +785,6 @@ public class ModeloInicio extends javax.swing.JFrame {
         jLabel24.setText("DNI");
 
         jLabel25.setText("Nombre");
-
-        jLabel26.setText("Penalizado");
 
         jLabel27.setText("Fecha_Devolucion");
 
@@ -844,15 +837,11 @@ public class ModeloInicio extends javax.swing.JFrame {
                                         .addComponent(btn_crear_prestamo)
                                         .addGap(33, 33, 33)
                                         .addComponent(devolucion_libro)))
-                                .addGap(12, 12, 12)
+                                .addGap(34, 34, 34)
                                 .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(Id_userP, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel32)
-                                    .addComponent(Volver_Crear_Prestamo))
-                                .addGap(27, 27, 27)
-                                .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Penalizado_P, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel26)))
+                                    .addComponent(Volver_Crear_Prestamo, javax.swing.GroupLayout.Alignment.LEADING)))
                             .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(Crear_PrestamoLayout.createSequentialGroup()
                                     .addGap(164, 164, 164)
@@ -871,12 +860,12 @@ public class ModeloInicio extends javax.swing.JFrame {
                                     .addComponent(Titulo_P, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(29, 29, 29)
                                     .addComponent(Id_libroP, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(285, Short.MAX_VALUE))
+                        .addContainerGap(471, Short.MAX_VALUE))
                     .addGroup(Crear_PrestamoLayout.createSequentialGroup()
                         .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(Crear_PrestamoLayout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(255, 255, 255)
+                                .addGap(222, 222, 222)
                                 .addComponent(jLabel34)
                                 .addGap(18, 18, 18)
                                 .addComponent(ID_PRESTAMOTEXT, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -888,15 +877,11 @@ public class ModeloInicio extends javax.swing.JFrame {
                                 .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(fecha_iniciio, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                                     .addComponent(fecha_FinPrestamo))
-                                .addGap(57, 57, 57)
-                                .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel12))
+                                .addGap(101, 101, 101)
+                                .addComponent(jLabel11)
                                 .addGap(29, 29, 29)
-                                .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dias_prestamo, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                                    .addComponent(Dias_trascurridos))))
-                        .addGap(0, 307, Short.MAX_VALUE))))
+                                .addComponent(dias_prestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         Crear_PrestamoLayout.setVerticalGroup(
             Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -915,10 +900,8 @@ public class ModeloInicio extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
-                    .addComponent(fecha_FinPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)
-                    .addComponent(Dias_trascurridos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                    .addComponent(fecha_FinPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(jLabel22)
@@ -930,28 +913,29 @@ public class ModeloInicio extends javax.swing.JFrame {
                     .addComponent(Titulo_P, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ID_LIBRO_P, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Id_libroP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(41, 41, 41)
                 .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
                     .addComponent(jLabel25)
-                    .addComponent(jLabel26)
                     .addComponent(jLabel32))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Id_userP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Penalizado_P, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Id_userP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel23)
                         .addComponent(ID_USUARIOS_P, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(DNI_P, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(Nombre_U_P, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(51, 51, 51)
-                .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_crear_prestamo)
-                    .addComponent(devolucion_libro)
-                    .addComponent(Volver_Crear_Prestamo))
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Crear_PrestamoLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(Crear_PrestamoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_crear_prestamo)
+                            .addComponent(devolucion_libro)))
+                    .addGroup(Crear_PrestamoLayout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(Volver_Crear_Prestamo)))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
 
         PanelAPP.add(Crear_Prestamo, "card5");
@@ -1024,10 +1008,6 @@ public class ModeloInicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_text_eliminarlibroActionPerformed
 
-    private void Dias_trascurridosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Dias_trascurridosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Dias_trascurridosActionPerformed
-
     private void dias_prestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dias_prestamoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dias_prestamoActionPerformed
@@ -1070,11 +1050,9 @@ public class ModeloInicio extends javax.swing.JFrame {
     public javax.swing.JButton BTM_DESPENALIZAR;
     public javax.swing.JButton BTN_NUEVO_PRESTAMO;
     public javax.swing.JButton Buscar_libro;
-    public javax.swing.JButton Buscar_usuer;
     public javax.swing.JTextField Clase_Libro_P;
     public javax.swing.JPanel Crear_Prestamo;
     public javax.swing.JTextField DNI_P;
-    private javax.swing.JTextField Dias_trascurridos;
     private javax.swing.JLabel DniLabel;
     private javax.swing.JLabel DniLabel1;
     public javax.swing.JComboBox ID_LIBRO_P;
@@ -1089,13 +1067,13 @@ public class ModeloInicio extends javax.swing.JFrame {
     public javax.swing.JPanel P_Historicos;
     public javax.swing.JPanel P_Prestamo;
     public javax.swing.JPanel PanelAPP;
-    private javax.swing.JTextField Penalizado_P;
     public javax.swing.JTable T_HISTORICOS;
     public javax.swing.JTable T_Prestamo;
     public javax.swing.JTextField Titulo_P;
     public javax.swing.JButton VOLVER_LIBRO;
     public javax.swing.JButton VOLVER_P;
     public javax.swing.JButton VOLVER_USER;
+    public javax.swing.JButton Visualizar;
     public javax.swing.JButton Volver_Crear_Prestamo;
     public javax.swing.JButton Volver_inicioP;
     public javax.swing.JTextField apellido_autor_txt;
@@ -1104,6 +1082,7 @@ public class ModeloInicio extends javax.swing.JFrame {
     public javax.swing.JButton btnInsertlector;
     public javax.swing.JButton btnInsertlibro;
     public javax.swing.JButton btn_crear_prestamo;
+    public javax.swing.JButton btn_editar_User;
     public javax.swing.JButton btn_eliminar_l;
     public javax.swing.JButton btn_eliminar_libro;
     public javax.swing.JButton btn_ir_PanelPrestamo;
@@ -1123,7 +1102,6 @@ public class ModeloInicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     public javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1138,7 +1116,6 @@ public class ModeloInicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;

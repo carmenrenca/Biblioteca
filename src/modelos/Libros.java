@@ -7,7 +7,9 @@ package modelos;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +19,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import oracle.jdbc.OracleTypes;
+import oracle.net.aso.i;
 
 /**
  *
@@ -25,8 +28,11 @@ import oracle.jdbc.OracleTypes;
 public class Libros extends database {
      Connection con;
       CallableStatement cstmt = null;
+
+ResultSetMetaData resultmatadato;
+
        public String[] listar_por_id_LIBRO(int id){
-                   
+                  
                     String[] info = new String[6];
                     try{
                         con=database.getConnection();
@@ -67,8 +73,11 @@ public class Libros extends database {
       
       
               public DefaultTableModel listarlibros(){
+                   ResultSetMetaData metares;
                  int t=0;
-                 String[] headers = { "ID_LIBRO","Titulo","Editorial","Nombre_Autor","Apellido","Clase","Disponibilidad" };
+                 int columna;
+       String[] headers = null;
+
                  DefaultTableModel tabla = new DefaultTableModel();
                 
           try {
@@ -78,6 +87,12 @@ public class Libros extends database {
               cstmt.executeQuery();
               
               ResultSet cursor= (ResultSet) cstmt.getObject(1);
+              metares=cursor.getMetaData();
+              columna= metares.getColumnCount();
+              headers= new String[columna];
+              for(int i =0; i<headers.length; i++){
+              headers[i]=metares.getColumnName(i+1);
+          }
               while(cursor.next()){
                   t++;
               }
@@ -98,8 +113,10 @@ public class Libros extends database {
                this.cstmt=con.prepareCall("{call CONSULTA_LIBROS.obtener_libros(?)}");
               cstmt.registerOutParameter(1, OracleTypes.CURSOR);
               cstmt.executeQuery();
-              
+         
               ResultSet cursor= (ResultSet) cstmt.getObject(1);
+                   resultmatadato= cursor.getMetaData();
+                
               int i=0;
               while(cursor.next()){
                   ID_LIBRO=cursor.getInt(1);
@@ -205,5 +222,47 @@ public class Libros extends database {
          }
                
                }
+               
+               
+                           public String[] listar_por_id(int id){
+                   
+                    String[] info = new String[6];
+                    try{
+                        con=database.getConnection();
+              this.cstmt=con.prepareCall("{call SELECT_LIBRO_ID.obtener_libros_ID(?,?)}");
+              cstmt.registerOutParameter(1, OracleTypes.CURSOR);
+              cstmt.setInt(2, id);
+              cstmt.execute();
+               cstmt.executeQuery();
+       
+             int p;
+                ResultSet cursor= (ResultSet) cstmt.getObject(1);
+                  while(cursor.next()){
+                   p=cursor.getInt(1);
+                   
+             info[0]=cursor.getString(2);
+              
+          
+                info[1]=cursor.getString(3);
+         
+                 info[2]=cursor.getString(4);
+                 info[3]=cursor.getString(5);
+                
+                info[4]=cursor.getString(6);
+                info[5]=Integer.toString(cursor.getInt(7));
+                if(p==id){
+                    break;
+                }
+              }
+                
+                cursor.close();
+		    cstmt.close();
+		    con.close();
+                    }catch (SQLException ex){
+                        
+                    }
+          return info;
+                    
+                }
 }
 

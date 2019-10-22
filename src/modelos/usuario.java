@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -87,8 +88,10 @@ public class usuario extends database{
                 }
          
                public DefaultTableModel listarlectores(){
+                   ResultSetMetaData metares;
+                   int c;
                  int t=0;
-                 String[] headers = { "Nº Carnet","DNI","Nombre","Calle","Ciudad","Cod_Post","Penalizacion" };
+                 String[] headers = null;
                  DefaultTableModel tabla = new DefaultTableModel();
                 
           try {
@@ -98,6 +101,12 @@ public class usuario extends database{
               cstmt.executeQuery();
               
               ResultSet cursor= (ResultSet) cstmt.getObject(1);
+              metares= cursor.getMetaData();
+              c=metares.getColumnCount();
+              headers=new String[c];
+              for(int i=0; i<headers.length; i++){
+                  headers[i]=metares.getColumnName(i+1);
+              }
               while(cursor.next()){
                   t++;
               }
@@ -181,7 +190,7 @@ public class usuario extends database{
                
            //modificar usuario
                
-           public void Editar_User(String nombre, String DNI, String calle,String ciudad, int cod_post, int penalizacion){
+           public void Editar_User(String nombre, String DNI, String calle,String ciudad, int cod_post, int id){
                  try {
              
               con=database.getConnection();
@@ -191,7 +200,7 @@ public class usuario extends database{
               cstmt.setString(3, calle);
               cstmt.setString(4, ciudad);
               cstmt.setInt(5, cod_post);
-              cstmt.setInt(6, penalizacion);
+              cstmt.setInt(6, id);
               cstmt.execute();
               cstmt.close();
               con.close();

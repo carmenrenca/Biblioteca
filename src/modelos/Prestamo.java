@@ -237,7 +237,7 @@ public class Prestamo {
         public DefaultTableModel listar_historicos(){
          String aux;
            int t=0;
-                 String[] headers = { "ID_PRESTAMO","FECHA_INICIO","FECHA_LIMITE","FECHA_ENTREGA","ID_USUARIO","ID_LIBRO"};
+                 String[] headers = { "ID_HISTORICO","FECHA_INICIO","FECHA_ENTREGA","FECHA_LIMITE","ID_LIBRO","ID_USUARIO"};
                  DefaultTableModel tabla = new DefaultTableModel();
                     try {
               con=database.getConnection();

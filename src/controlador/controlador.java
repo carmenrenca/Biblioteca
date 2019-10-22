@@ -51,9 +51,9 @@ public class controlador implements ActionListener,MouseListener  {
     Prestamo p= new Prestamo();
     
      public enum AccionMVC {
-		__GOTO_USUARIOS,__MOSTRAR_USUARIO, __INSERTAR_LECTOR,__GOTO_CREARLECTOR, __ELIMINAR_USER,
+		__GOTO_USUARIOS,__MOSTRAR_USUARIO, __INSERTAR_LECTOR,__GOTO_CREARLECTOR, __ELIMINAR_USER,__EDITAR_USER,
                 //-----------------------------------LIBROS----------------------------------------------\\\\\
-               __MOSTRAR_LIBROS, __CREAR_LIBROS, __ELIMINAR_LIBROS,
+               __MOSTRAR_LIBROS, __CREAR_LIBROS, __ELIMINAR_LIBROS, __VISUALIZAR_LIBRO_ID,
                //----------------------------------PRESTAMO----------------------------
                __PRESTAMO, __IR_CREAR_PRESTAMO, __NUEVO_PRESTAMO, MOSTRAR_USER_P, MOSTRAR_LIBROS_P, 
                __MODIFICA_PRESTAMO, __DEVOLVER,__VER_HISTORICO,
@@ -81,13 +81,13 @@ public class controlador implements ActionListener,MouseListener  {
       this.vista.bt_visualizar_usuario.setActionCommand("__GOTO_USUARIOS");
       this.vista.bt_visualizar_usuario.addActionListener(this);
       
-      
+   
       
       this.vista.btnInsertlector.setActionCommand("__INSERTAR_LECTOR");
       this.vista.btnInsertlector.addActionListener(this);
       
-      this.vista.Buscar_usuer.setActionCommand("__MOSTRAR_USUARIO");
-      this.vista.Buscar_usuer.addActionListener(this);
+      this.vista.Visualizar.setActionCommand("__MOSTRAR_USUARIO");
+      this.vista.Visualizar.addActionListener(this);
       
       this.vista.btn_eliminar_l.setActionCommand("__ELIMINAR_USER");
       this.vista.btn_eliminar_l.addActionListener(this);
@@ -108,6 +108,9 @@ public class controlador implements ActionListener,MouseListener  {
     
        this.vista.ID_USUARIOS_P.setActionCommand("MOSTRAR_USER_P");
        this.vista.ID_USUARIOS_P.addActionListener(this);
+       
+       this.vista.btn_editar_User.setActionCommand("__EDITAR_USER");
+       this.vista.btn_editar_User.addActionListener(this);
        
        this.vista.ID_LIBRO_P.setActionCommand("MOSTRAR_LIBROS_P");
        this.vista.ID_LIBRO_P.addActionListener(this);
@@ -140,6 +143,9 @@ public class controlador implements ActionListener,MouseListener  {
        
        this.vista.BTM_DESPENALIZAR.setActionCommand("__DESPENALIZAR");
        this.vista.BTM_DESPENALIZAR.addActionListener(this);
+       
+       this.vista.Buscar_libro.setActionCommand("__VISUALIZAR_LIBRO_ID");
+       this.vista.Buscar_libro.addActionListener(this);
                }
       
  
@@ -190,7 +196,19 @@ public class controlador implements ActionListener,MouseListener  {
               vista.codig_postext.setText(valor[4]);
           
          break;
+                case __EDITAR_USER:
+                    String nombre, calle,dni,ciudad;
+                    int cod_pos, id_us;
                     
+                    nombre=vista.nombre_usuariotxt.getText();
+                    calle=vista.calletxt.getText();
+                    dni=vista.dnitext.getText();
+                    ciudad=vista.ciudadtext.getText();
+                    cod_pos=Integer.parseInt(vista.codig_postext.getText());
+                    id_us=Integer.parseInt(vista.NCARNETtxt.getText());
+                    u.Editar_User(nombre, dni, calle, ciudad, cod_pos, id_us);
+                      this.vista.tabla_usuario.setModel(u.listarlectores());
+                    break;
                 case __ELIMINAR_USER:
                   
                  int ncarnet= Integer.parseInt(vista.text_eliminar_libro.getText().trim());
@@ -218,6 +236,20 @@ public class controlador implements ActionListener,MouseListener  {
                     this.vista.clases_libro_combo.setModel(l.Listar_Clases());
                      this.vista.tabla_libro.setModel( l.listarlibros());
                     
+                    break;
+                    
+                case __VISUALIZAR_LIBRO_ID:
+                       String valor_l[]= new String [6];
+                    int id_l_m;
+                   id_l_m= Integer.parseInt(vista.id_librotxt.getText());
+                  valor_l= l.listar_por_id(id_l_m);
+                   vista.titulotxt.setText(valor_l[0]);
+                   vista.nombre_autortxt.setText(valor_l[2]);
+                   vista.apellido_autor_txt.setText(valor_l[3]);
+                   vista.editorialtxt.setText(valor_l[1]);
+                   vista.clases_libro_combo.setSelectedItem(valor_l[4]);
+                           
+                  vista.disponibilidadtxt.setText(valor_l[5]);
                     break;
                 case  __CREAR_LIBROS:
                     String titulo= vista.titulotxt.getText();
@@ -297,6 +329,7 @@ public class controlador implements ActionListener,MouseListener  {
           
                     break;
                 case __NUEVO_PRESTAMO:
+                   
               int id_u;
               int id_l; 
               String c;
@@ -304,6 +337,7 @@ public class controlador implements ActionListener,MouseListener  {
               id_l=Integer.parseInt((String)vista.ID_LIBRO_P.getSelectedItem());
               c=vista.Clase_Libro_P.getText();
               int dis= p.penalizaciones(id_l, id_u);
+                    System.out.println("diss "+dis);
               if(dis==0){
                   JOptionPane.showMessageDialog(vista,"No Se Puede Crear El Prestamo Solicitado");
               }else{
@@ -367,7 +401,8 @@ public class controlador implements ActionListener,MouseListener  {
                     g.cambiarinterfazes(vista.P_Historicos);
                     break;
                 case __DEVOLVER:
-            
+                    System.out.println("id prestamo: "+vista.ID_PRESTAMOTEXT.getText());
+           
                  l.devolver_libro(Integer.parseInt(vista.Id_libroP.getText()) ,Integer.parseInt(vista.ID_PRESTAMOTEXT.getText()) );
                  g.cambiarinterfazes(vista.P_Prestamo);
                     vista.T_Prestamo.setModel( p.listar_prestamo());

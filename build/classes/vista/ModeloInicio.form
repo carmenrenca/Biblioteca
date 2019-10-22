@@ -61,34 +61,37 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="bt_visualizar_usuario" pref="95" max="32767" attributes="0"/>
-                          <Component id="bt_visualizar_LIBROS" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btn_ir_PanelPrestamo" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="bt_visualizar_usuario" pref="95" max="32767" attributes="0"/>
+                                  <Component id="bt_visualizar_LIBROS" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btn_ir_PanelPrestamo" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="670" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
+                      <EmptySpace pref="800" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Component id="bt_visualizar_usuario" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="bt_visualizar_LIBROS" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="btn_ir_PanelPrestamo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="55" max="32767" attributes="0"/>
+                      <EmptySpace pref="378" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -161,9 +164,9 @@
                               <Component id="jSeparator2" min="-2" pref="609" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="396" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="360" max="-2" attributes="0"/>
                               <Component id="Buscar_libro" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="id_librotxt" min="-2" pref="72" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -229,7 +232,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="405" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -383,7 +386,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnInsertlibro">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Guardar"/>
+                <Property name="text" type="java.lang.String" value="Crear"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInsertlibroActionPerformed"/>
@@ -399,7 +402,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="Buscar_libro">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Buscar"/>
+                <Property name="text" type="java.lang.String" value="Visualizar"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -510,7 +513,7 @@
                       <Component id="jScrollPane5" min="-2" pref="123" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="VOLVER_P" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="388" max="32767" attributes="0"/>
+                      <EmptySpace pref="344" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -627,7 +630,7 @@
                           <Component id="Modi_Prestamo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Volver_inicioP" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="329" max="32767" attributes="0"/>
+                      <EmptySpace pref="285" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -769,6 +772,8 @@
                                           <Component id="dnitext" min="-2" pref="151" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Group type="102" attributes="0">
+                                                  <Component id="btn_editar_User" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="btnInsertlector" min="-2" pref="80" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                               </Group>
@@ -814,7 +819,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="396" max="-2" attributes="0"/>
-                              <Component id="Buscar_usuer" min="-2" max="-2" attributes="0"/>
+                              <Component id="Visualizar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="NCARNETtxt" min="-2" pref="72" max="-2" attributes="0"/>
                           </Group>
@@ -823,7 +828,7 @@
                               <Component id="jSeparator1" min="-2" pref="609" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="275" max="32767" attributes="0"/>
+                      <EmptySpace pref="405" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -831,7 +836,7 @@
                           <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                           <Component id="nombre_usuariotxt" min="-2" pref="152" max="-2" attributes="0"/>
-                          <EmptySpace pref="605" max="32767" attributes="0"/>
+                          <EmptySpace pref="735" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -845,7 +850,7 @@
                       <Component id="jScrollPane1" min="-2" pref="107" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Buscar_usuer" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Visualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="NCARNETtxt" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -867,6 +872,7 @@
                           <Component id="codig_postext" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnInsertlector" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_editar_User" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -885,7 +891,7 @@
                           <Component id="txt_despenalizar_id" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="BTM_DESPENALIZAR" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="154" max="32767" attributes="0"/>
+                      <EmptySpace pref="110" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
@@ -894,7 +900,7 @@
                               <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="nombre_usuariotxt" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="385" max="32767" attributes="0"/>
+                          <EmptySpace pref="341" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -995,7 +1001,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnInsertlector">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Guardar"/>
+                <Property name="text" type="java.lang.String" value="Crear"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInsertlectorActionPerformed"/>
@@ -1009,9 +1015,9 @@
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="Buscar_usuer">
+            <Component class="javax.swing.JButton" name="Visualizar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Buscar"/>
+                <Property name="text" type="java.lang.String" value="Visualizar"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -1076,6 +1082,14 @@
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
             </Component>
+            <Component class="javax.swing.JButton" name="btn_editar_User">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="Crear_Prestamo">
@@ -1120,16 +1134,11 @@
                                               <Component id="devolucion_libro" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="Id_userP" min="-2" pref="47" max="-2" attributes="0"/>
                                           <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
-                                          <Component id="Volver_Crear_Prestamo" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="Penalizado_P" min="-2" pref="49" max="-2" attributes="0"/>
-                                          <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                                          <Component id="Volver_Crear_Prestamo" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
@@ -1154,13 +1163,13 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="285" max="32767" attributes="0"/>
+                              <EmptySpace pref="471" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel10" min="-2" pref="132" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="255" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="222" max="-2" attributes="0"/>
                                       <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="ID_PRESTAMOTEXT" min="-2" pref="81" max="-2" attributes="0"/>
@@ -1175,19 +1184,13 @@
                                           <Component id="fecha_iniciio" pref="139" max="32767" attributes="0"/>
                                           <Component id="fecha_FinPrestamo" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="dias_prestamo" pref="46" max="32767" attributes="0"/>
-                                          <Component id="Dias_trascurridos" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="dias_prestamo" min="-2" pref="46" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="307" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -1213,10 +1216,8 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="fecha_FinPrestamo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Dias_trascurridos" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="104" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1230,19 +1231,15 @@
                           <Component id="ID_LIBRO_P" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Id_libroP" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                              <Component id="Id_userP" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="Penalizado_P" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="Id_userP" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ID_USUARIOS_P" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1250,13 +1247,20 @@
                               <Component id="Nombre_U_P" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btn_crear_prestamo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="devolucion_libro" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Volver_Crear_Prestamo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btn_crear_prestamo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="devolucion_libro" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="Volver_Crear_Prestamo" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="224" max="32767" attributes="0"/>
+                      <EmptySpace pref="266" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1295,16 +1299,6 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
-            </Component>
-            <Component class="javax.swing.JTextField" name="Dias_trascurridos">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Dias_trascurridosActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel12">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="D&#xed;as Tranascurridos"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>
@@ -1385,13 +1379,6 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
-            </Component>
-            <Component class="javax.swing.JTextField" name="Penalizado_P">
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel26">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Penalizado"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel27">
               <Properties>

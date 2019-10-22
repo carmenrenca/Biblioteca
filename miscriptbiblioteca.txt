@@ -1,5 +1,7 @@
 
-///////////CREAR OBJETO DIRECCION\\\\\\\\\\\\\º
+-----------------------------------------------------------------------------------OBJETOS---------------------------------------------------------------------------
+
+/////////// OBJETO DIRECCION\\\\\\\\\\\\\
 
 create or replace TYPE DIRECCION AS OBJECT(
 CALLE VARCHAR2(25),
@@ -9,8 +11,7 @@ MEMBER PROCEDURE SET_CALLE(C VARCHAR2),
 MEMBER FUNCTION GET_CALLE RETURN VARCHAR2
 );
 
-//////////////////CREAR OBJETO USUARIO\\\\\\\\\\\\\\\\\\\
-
+/////////////CREAR OBJETO USUARIO\\\\\\\
 create or replace TYPE USUARIO AS OBJECT(
 NCARNET NUMBER,
 DNI VARCHAR2(9),
@@ -18,15 +19,41 @@ NOMBRE VARCHAR2(35),
 DIREC HR.DIRECCION,
 PENALIZACION NUMBER
 );
+/////////////////////OBJETO LIBRO\\\\\\\\\\\\\\\\º
 
+create or replace TYPE LIBRO AS OBJECT(
+ID_LIBRO NUMBER,
+TITULO VARCHAR2(30),
+EDITORIAL VARCHAR2(35),
+autor HR.AUTOR,
+CLASE VARCHAR(20),
+DISPONIBILIDAD NUMBER(1)
+);
+
+
+/////////////OBJETO AUTOR\\\\\\\\\\\\\
+
+create or replace TYPE AUTOR AS OBJECT(
+NOMBRE VARCHAR2(25),
+APELLIDO1 VARCHAR2(20)
+
+);
+
+---------------------------------------------------------------------------USUARIOS--------------------------------------------------------------------------------------
 /////////////////////CREAR TABLA USUARIO\\\\\\\\\\\\\\\\\\\\\\\\\\
 CREATE TABLE USUARIOS OF USUARIO(
 NCARNET PRIMARY KEY
 );
 
+//////////////SEQUENCIA USUARIOS\\\\\\\\\\\
+
+CREATE SEQUENCE seq_lectores
+   MINVALUE 1
+   START WITH 1
+   INCREMENT BY 1;
 
 
-//////////////////////////7/cursor para SELECIONAR USUARIOS\\\\\\\\\\\\\\\\\\\\\\\\\\ 
+///////////////////////////cursor para SELECIONAR USUARIOS\\\\\\\\\\\\\\\\\\\\\\\\\\ 
 
 create or replace PACKAGE      "CONSULTA_USER" 
 AS
@@ -35,7 +62,7 @@ AS
     PROCEDURE obtener_usuarios(lista_registros OUT cursor_dinamico);
 
 END;
-create or replace PACKAGE BODY CONSULTA_USUER
+create or replace PACKAGE BODY CONSULTA_USER
 IS
    PROCEDURE obtener_usuarios(lista_registros OUT cursor_dinamico) IS 
     BEGIN      
@@ -44,8 +71,7 @@ IS
   END;
   END;
 
-
-//////////////////////////////////PROCESO PARA CREAR LECTORES\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////////////////////////////////PROCESO PARA CREAR USUARIOS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 create or replace PROCEDURE "CREAR_USER"(
 
@@ -55,10 +81,10 @@ dni IN USUARIOS.DNI%TYPE,
 nombre IN USUARIOS.NOMBRE%TYPE,
 calle IN USUARIOS.DIREC.CALLE%TYPE,
 ciudad IN USUARIOS.DIREC.CIUDAD%TYPE,
-cod_post IN USUARIOS.DIREC.CODIGO_POST%TYPE,
-penalizacion IN USUARIOS.PENALIZACION%TYPE)IS
+cod_post IN USUARIOS.DIREC.CODIGO_POST%TYPE
+)IS
 BEGIN 
-INSERT INTO USUARIOS VALUES(seq_lectores.NEXTVAL,dni,nombre,DIRECCION(calle,ciudad,cod_post),penalizacion);
+INSERT INTO USUARIOS VALUES(seq_lectores.NEXTVAL,dni,nombre,DIRECCION(calle,ciudad,cod_post),1);
 END;
 
 ///PROCEDIMIENTO PARA EDITAR USUARIO
@@ -75,28 +101,27 @@ BEGIN
 UPDATE  USUARIOS U SET U.NOMBRE=nombre,U.DNI=dni,U.DIREC.CALLE=calle,U.DIREC.CIUDAD=ciudad,U.DIREC.CODIGO_POST=cod_post,U.PENALIZACION=penalizacion;
 END;
 
-///////////////////////77////SELECIONAR POR ID\\\\\\\\\\\\\\\\\\\\\\º\\\
+//////////////////////////SELECIONAR POR ID\\\\\\\\\\\\\\\\\\\\\\º\\\
 
-create or replace PACKAGE      "CONSULTA_USER_ID" 
+create or replace PACKAGE      "SELECT_USER_ID" 
 AS
 
     TYPE cursor_dinamico IS REF CURSOR;
-    PROCEDURE obtener_usuarios_ID(lista_registros OUT cursor_dinamico, ncarnet in NUMBER);
+    PROCEDURE obtener_usuarios_ID(lista_registros OUT cursor_dinamico,ncarnet IN USUARIOS.NCARNET%TYPE);
 
 END;
 
 
-create or replace PACKAGE BODY CONSULTA_USER_ID
+create or replace PACKAGE BODY SELECT_USER_ID
 IS
-   PROCEDURE obtener_usuarios_ID(lista_registros OUT cursor_dinamico, ncarnet in NUMBER) IS 
+   PROCEDURE obtener_usuarios_ID(lista_registros OUT cursor_dinamico, ncarnet IN USUARIOS.NCARNET%TYPE) IS 
     BEGIN      
+
         OPEN lista_registros FOR 
-        SELECT DNI,NOMBRE,U.DIREC.CALLE,U.DIREC.CIUDAD,U.DIREC.CODIGO_POST FROM USUARIOS U WHERE U.NCARNET=ncarnet;
+        SELECT U.NCARNET, U.DNI,U.NOMBRE,U.DIREC.CALLE,U.DIREC.CIUDAD,U.DIREC.CODIGO_POST, U.PENALIZACION FROM USUARIOS U WHERE U.NCARNET=ncarnet;
   END;
   END;
-
 ///////////////////////ELIMINAR USUARIO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
 create or replace PROCEDURE      "ELIMINAR_USER" (
       iden IN USUARIOS.NCARNET%TYPE
 ) IS
@@ -104,24 +129,20 @@ BEGIN
     DELETE FROM USUARIOS U WHERE U.NCARNET=iden;
 END;
 
-//////////////////////////////CREAR_OBJETO_AUTOR\\\\\\\\\\\\\\\\\\\\\\
-create or replace TYPE AUTOR AS OBJECT(
-NOMBRE VARCHAR2(25),
-APELLIDO1 VARCHAR2(20)
+/////////DEPENALIZAR USUARIO \\\\\\\\\\
 
-);
+create or replace PROCEDURE "DESPENALIZAR"(
+
+
+id IN USUARIOS.NCARNET%TYPE
+)IS
+BEGIN 
+UPDATE  USUARIOS U SET PENALIZACION=1 WHERE U.NCARNET=id;
+END;
 
 --------------------------------------------------------------------------------LIBRO---------------------------------------------------------------------------------------
 
-//////////////////////CREAR_OBJETO_LIBRO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-create or replace TYPE LIBRO AS OBJECT(
-ID_LIBRO NUMBER,
-TITULO VARCHAR2(30),
-EDITORIAL VARCHAR2(35),
-autor HR.AUTOR,
-CLASE VARCHAR(20),
-DISPONIBILIDAD NUMBER(1)
-);
+
 
 ////////////////////////////CREAR TABLA LIBRO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -154,7 +175,7 @@ IS
 
 ////////////////INSERTA LIBROS\\\\\\\\\\\\\\\\\\\\
 
-CREATE OR REPLACE PROCEDURE "CREAR_LIBRO"(
+create or replace PROCEDURE "CREAR_LIBRO"(
 titulo IN LIBROS.TITULO%TYPE, 
 editorial IN LIBROS.EDITORIAL%TYPE,
 nombre_autor IN LIBROS.autor.NOMBRE%TYPE,
@@ -164,7 +185,6 @@ disponibilidad IN LIBROS.DISPONIBILIDAD%TYPE)IS
 BEGIN 
 INSERT INTO LIBROS l VALUES(seq_lectores.NEXTVAL,titulo,editorial,AUTOR(nombre_autor,apellido),clase,disponibilidad);
 END;
-
 ////////////////ELIMINAR LIBROS\\\\\\\\\\\\\\\\\\\\\
 create or replace PROCEDURE      "ELIMINAR_LIBRO" (
       id IN LIBROS.ID_LIBRO%TYPE
@@ -173,15 +193,82 @@ BEGIN
     DELETE FROM LIBROS L  WHERE L.ID_LIBRO=id;
 END;
 
--------------------------------------------------------------CLASE-------------------------------------------------
+
+//////////////////IMPRIMIR LIBROS POR ID\\\\\\\\\\\\
+
+create or replace PACKAGE      "SELECT_LIBRO_ID" 
+AS
+
+    TYPE cursor_dinamico IS REF CURSOR;
+    PROCEDURE obtener_libros_ID(lista_registros OUT cursor_dinamico,id_libro IN LIBROS.ID_LIBRO%TYPE);
+
+END;
+create or replace PACKAGE BODY SELECT_LIBRO_ID
+IS
+   PROCEDURE obtener_libros_ID(lista_registros OUT cursor_dinamico, id_libro IN LIBROS.ID_LIBRO%TYPE) IS 
+    BEGIN      
+
+        OPEN lista_registros FOR 
+        SELECT L.ID_LIBRO, L.TITULO,L.EDITORIAL,L.AUTOR.NOMBRE,L.AUTOR.APELLIDO1,L.CLASE, L.DISPONIBILIDAD FROM LIBROS L WHERE L.ID_LIBRO=id_libro;
+  END;
+  END;
+
+////////////////////////////////  DEVOLVER LIBRO \\\\\\\\\ cuando me haga un delete en la tabla prestamos se lanzará un disparador que me insertara \\\\\\\\\\\\\\
+/// esa fila eliminada y me lo inserta en historicos \\\\\\\\\\\\\\\\\\\\\\\ 
+
+
+create or replace PROCEDURE DEVOLVER_LIBRO(
+
+  nid_libro IN LIBROS.ID_LIBRO%TYPE, press IN number)IS
+  
+   DISP NUMBER;
+
+	fe_entrega DATE;
+  id_user NUMBER;
+  f_limite DATE;
+  BEGIN 
+
+  SELECT  DISPONIBILIDAD INTO DISP FROM LIBROS  WHERE ID_LIBRO=nid_libro;
+
+  UPDATE LIBROS SET DISPONIBILIDAD=1 WHERE ID_LIBRO=nid_libro;
+   select   CURRENT_TIMESTAMP into fe_entrega from dual;
+   UPDATE PRESTAMOS p SET p.FECHA_ENTREGA=fe_entrega WHERE p.ID_PRESTAMO=press; 
+  SELECT FECHA_LIMITE INTO f_limite FROM PRESTAMOS WHERE ID_PRESTAMO=press;
+ 
+  IF fe_entrega> f_limite THEN
+SELECT DEREF(USUARIO).NCARNET INTO id_user FROM PRESTAMOS  WHERE ID_PRESTAMO=press;
+  UPDATE USUARIOS SET PENALIZACION=0 WHERE NCARNET=id_user;
+  END IF;
+  
+DELETE PRESTAMOS WHERE ID_PRESTAMO= press;
+
+  END;
+-----------------------------------------------------------------------------------CLASE-------------------------------------------------------------------------------
 CREATE TABLE CLASE (
 GENERO VARCHAR2(25),
 DIAS NUMBER
 
 );
 
-INSERT INTO CLASE (GENERO, DIAS) VALUES('TECNICOS',20) ;
----------------------------------------------------------------PRESTAMOS------------------------------------------------------------------------------------
+//////SELECIONAR CLASES\\\\\\\\\º
+
+create or replace PACKAGE      "SELECT_CLASES" 
+AS
+
+    TYPE cursor_dinamico IS REF CURSOR;
+    PROCEDURE obtener_clases(lista_registros OUT cursor_dinamico);
+
+END;
+create or replace PACKAGE BODY SELECT_CLASES
+IS
+   PROCEDURE obtener_clases(lista_registros OUT cursor_dinamico) IS 
+    BEGIN      
+
+        OPEN lista_registros FOR 
+        SELECT GENERO,DIAS FROM CLASE;
+  END;
+  END;
+---------------------------------------------------------------------------PRESTAMOS------------------------------------------------------------------------------------
 
 CREATE TABLE PRESTAMOS (
 ID_PRESTAMO NUMBER PRIMARY KEY,
@@ -201,9 +288,9 @@ CREATE SEQUENCE seq_prestamo
 
 ////////CREAR PRESTAMO\\\\\\\\\\\\\\
 
-  create or replace PROCEDURE "CREAR_PRESTAMO"(
+create or replace PROCEDURE "CREAR_PRESTAMO"(
 
-  id_libro IN LIBROS.ID_LIBRO%TYPE,
+  nid_libro IN LIBROS.ID_LIBRO%TYPE,
   id_usuario IN USUARIOS.NCARNET%TYPE, clase VARCHAR2)IS
   
    DISPO NUMBER;
@@ -212,16 +299,15 @@ CREATE SEQUENCE seq_prestamo
   
   BEGIN 
   select   CURRENT_TIMESTAMP into dia_hoy from dual;
-  SELECT  l.DISPONIBILIDAD INTO DISPO FROM LIBROS l WHERE l.ID_LIBRO=id_libro;
+  SELECT  l.DISPONIBILIDAD INTO DISPO FROM LIBROS l WHERE l.ID_LIBRO=nid_libro;
   SELECT DIAS INTO dias_clase FROM CLASE WHERE GENERO=clase;  
-  DBMS_OUTPUT.PUT_LINE(dias_clase+'entro');  
+
   IF DISPO=1 THEN
-  UPDATE LIBROS SET DISPONIBILIDAD=0 WHERE ID_LIBRO=id_libro;
+  UPDATE LIBROS SET DISPONIBILIDAD=0 WHERE ID_LIBRO=nid_libro;
   
-  INSERT INTO PRESTAMOS(ID_PRESTAMO,FECHA_INICIO,FECHA_DEVOLUCION,FECHA_ENTREGA,LIBRO,USUARIO)
-  SELECT seq_prestamo.NEXTVAL,dia_hoy,dia_hoy+dias_clase,NULL,REF(L),REF(US) FROM  LIBROS L, USUARIOS US WHERE L.ID_LIBRO=id_libro AND  US.NCARNET=id_usuario;
-
-
+  
+  INSERT INTO PRESTAMOS(ID_PRESTAMO,FECHA_INICIO,FECHA_LIMITE,FECHA_ENTREGA,LIBRO,USUARIO)
+  SELECT seq_prestamo.NEXTVAL,dia_hoy,dia_hoy+dias_clase,NULL,REF(L),REF(US) FROM  LIBROS L, USUARIOS US WHERE L.ID_LIBRO=nid_libro AND  US.NCARNET=id_usuario;
 END IF;
   END;
 ////////////////////////////LISTAR PRESTAMOS\\\\\\\\\\\\\\\
@@ -238,15 +324,13 @@ IS
    PROCEDURE obtener_prestamos(lista_registros OUT cursor_dinamico) IS 
     BEGIN      
         OPEN lista_registros FOR 
-        SELECT ID_PRESTAMO,FECHA_INICIO,FECHA_DEVOLUCION,FECHA_ENTREGA,ID_LIBRO,ID_USUARIO;
+        SELECT ID_PRESTAMO,FECHA_INICIO,FECHA_LIMITE,FECHA_ENTREGA,  P.LIBRO.ID_LIBRO, P.USUARIO.NCARNET, p.USUARIO.PENALIZACION FROM PRESTAMOS p;
   END;
-  END;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             /////////////////////////////DEVOLVER LIBRO\\\\\\\\\\\\\\\\\\\\\\\\\\\º                       
-
-
+  END;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         /////////////////////////////DEVOLVER LIBRO\\\\\\\\\\\\\\\\\\\\\\\\\\\º                       
 
 create or replace PROCEDURE DEVOLVER_LIBRO(
 
-  nid_libro IN LIBROS.ID_LIBRO%TYPE, id_pre number)IS
+  nid_libro IN LIBROS.ID_LIBRO%TYPE, press IN number)IS
   
    DISP NUMBER;
 
@@ -256,26 +340,21 @@ create or replace PROCEDURE DEVOLVER_LIBRO(
   BEGIN 
 
   SELECT  DISPONIBILIDAD INTO DISP FROM LIBROS  WHERE ID_LIBRO=nid_libro;
-  IF DISP=0 THEN
+
   UPDATE LIBROS SET DISPONIBILIDAD=1 WHERE ID_LIBRO=nid_libro;
    select   CURRENT_TIMESTAMP into fe_entrega from dual;
-   UPDATE PRESTAMOS p SET p.FECHA_ENTREGA=fe_entrega WHERE p.ID_PRESTAMO=id_pre;
- INSERT INTO HISTORICOS 
-SELECT * FROM PRESTAMOS WHERE ID_PRESTAMO=id_pre;
-
-  
- 
-  SELECT FECHA_LIMITE INTO f_limite FROM PRESTAMOS WHERE ID_PRESTAMO=id_pre;
+   UPDATE PRESTAMOS p SET p.FECHA_ENTREGA=fe_entrega WHERE p.ID_PRESTAMO=press; 
+  SELECT FECHA_LIMITE INTO f_limite FROM PRESTAMOS WHERE ID_PRESTAMO=press;
  
   IF fe_entrega> f_limite THEN
-SELECT DEREF(USUARIO).NCARNET INTO id_user FROM PRESTAMOS  WHERE ID_PRESTAMO=id_pre;
+SELECT DEREF(USUARIO).NCARNET INTO id_user FROM PRESTAMOS  WHERE ID_PRESTAMO=press;
   UPDATE USUARIOS SET PENALIZACION=0 WHERE NCARNET=id_user;
   END IF;
   
-DELETE PRESTAMOS WHERE ID_PRESTAMO= id_pre;
-END IF;
-  END;     
-  
+DELETE PRESTAMOS WHERE ID_PRESTAMO= press;
+
+  END;
+
 ///////////////////////////LISTAR HITORICO\\\\\\\\\\\\\\\\  
 
 create or replace PACKAGE      "VER_HISTORICO" 
@@ -290,6 +369,28 @@ IS
    PROCEDURE obtener_historico(lista_registros OUT cursor_dinamico) IS 
     BEGIN      
         OPEN lista_registros FOR 
-       SELECT ID_PRESTAMO,FECHA_INICIO,FECHA_ENTREGA,FECHA_LIMITE,ID_LIBRO,ID_USUARIO;
+       SELECT ID_PRESTAMO,FECHA_INICIO,FECHA_ENTREGA,FECHA_LIMITE,H.USUARIO.NCARNET,H.LIBRO.ID_LIBRO FROM HISTORICOS H;
   END;
-  END;                                                                                                     
+  END;
+/////////TABLA HISTORICO\\\\\\\
+
+CREATE TABLE HISTORICOS (
+ID_PRESTAMO NUMBER ,
+FECHA_INICIO DATE ,
+FECHA_LIMITE DATE ,
+FECHA_ENTREGA DATE, 
+libro HR.LIBRO,
+usuario HR.USUARIO 
+
+);
+
+
+
+/////////////////INSERTAR HISTORICO//////////////////
+
+create or replace trigger insertar_historico before delete on PRESTAMOS FOR EACH ROW
+BEGIN
+ INSERT INTO HISTORICOS VALUES(seq_historicos.NEXTVAL,:OLD.FECHA_INICIO,:OLD.FECHA_LIMITE,:OLD.FECHA_ENTREGA,DEREF(:OLD.LIBRO),DEREF(:OLD.USUARIO));
+
+ 
+ end;                                                                            
